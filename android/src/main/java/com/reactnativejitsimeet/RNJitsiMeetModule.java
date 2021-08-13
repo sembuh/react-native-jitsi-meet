@@ -108,4 +108,52 @@ public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
             }
         });
     }
+
+    @ReactMethod
+    public void muteAudio() {
+        UiThreadUtil.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent muteBroadcastIntent = new Intent(BroadcastAction.Type.SET_AUDIO_MUTED.getAction());
+                muteBroadcastIntent.putExtra("muted", true);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(muteBroadcastIntent);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void unmuteAudio() {
+        UiThreadUtil.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent muteBroadcastIntent = new Intent(BroadcastAction.Type.SET_AUDIO_MUTED.getAction());
+                muteBroadcastIntent.putExtra("muted", false);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(muteBroadcastIntent);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void muteVideo() {
+        UiThreadUtil.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent muteBroadcastIntent = new Intent(BroadcastAction.Type.SET_VIDEO_MUTED.getAction());
+                muteBroadcastIntent.putExtra("muted", true);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(muteBroadcastIntent);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void unmuteVideo() {
+        UiThreadUtil.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent muteBroadcastIntent = new Intent(BroadcastAction.Type.SET_VIDEO_MUTED.getAction());
+                muteBroadcastIntent.putExtra("muted", false);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(muteBroadcastIntent);
+            }
+        });
+    }
 }
