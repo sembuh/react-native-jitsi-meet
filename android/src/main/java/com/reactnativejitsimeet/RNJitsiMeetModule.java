@@ -3,6 +3,8 @@ package com.reactnativejitsimeet;
 import android.util.Log;
 import java.net.URL;
 import java.net.MalformedURLException;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import android.content.Intent;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -15,10 +17,12 @@ import com.facebook.react.bridge.ReadableMap;
 public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
     public static final String MODULE_NAME = "RNJitsiMeetModule";
     private IRNJitsiMeetViewReference mJitsiMeetViewReference;
+    private ReactApplicationContext mReactContext;
 
     public RNJitsiMeetModule(ReactApplicationContext reactContext, IRNJitsiMeetViewReference jitsiMeetViewReference) {
         super(reactContext);
         mJitsiMeetViewReference = jitsiMeetViewReference;
+        this.mReactContext = reactContext;
     }
 
     @Override
@@ -114,9 +118,9 @@ public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
         UiThreadUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Intent muteBroadcastIntent = new Intent(BroadcastAction.Type.SET_AUDIO_MUTED.getAction());
+                Intent muteBroadcastIntent = new Intent("org.jitsi.meet.SET_AUDIO_MUTED");
                 muteBroadcastIntent.putExtra("muted", true);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(muteBroadcastIntent);
+                LocalBroadcastManager.getInstance(mReactContext).sendBroadcast(muteBroadcastIntent);
             }
         });
     }
@@ -126,9 +130,9 @@ public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
         UiThreadUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Intent muteBroadcastIntent = new Intent(BroadcastAction.Type.SET_AUDIO_MUTED.getAction());
+                Intent muteBroadcastIntent = new Intent("org.jitsi.meet.SET_AUDIO_MUTED");
                 muteBroadcastIntent.putExtra("muted", false);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(muteBroadcastIntent);
+                LocalBroadcastManager.getInstance(mReactContext).sendBroadcast(muteBroadcastIntent);
             }
         });
     }
@@ -138,9 +142,9 @@ public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
         UiThreadUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Intent muteBroadcastIntent = new Intent(BroadcastAction.Type.SET_VIDEO_MUTED.getAction());
+                Intent muteBroadcastIntent = new Intent("org.jitsi.meet.SET_VIDEO_MUTED");
                 muteBroadcastIntent.putExtra("muted", true);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(muteBroadcastIntent);
+                LocalBroadcastManager.getInstance(mReactContext).sendBroadcast(muteBroadcastIntent);
             }
         });
     }
@@ -150,9 +154,9 @@ public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
         UiThreadUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Intent muteBroadcastIntent = new Intent(BroadcastAction.Type.SET_VIDEO_MUTED.getAction());
+                Intent muteBroadcastIntent = new Intent("org.jitsi.meet.SET_VIDEO_MUTED");
                 muteBroadcastIntent.putExtra("muted", false);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(muteBroadcastIntent);
+                LocalBroadcastManager.getInstance(mReactContext).sendBroadcast(muteBroadcastIntent);
             }
         });
     }
